@@ -9,12 +9,38 @@ use PlainDataTransformer\Exception\InvalidClass;
 
 class Transform
 {
-    public static function toString(mixed $value): string
+    public static function toBool($value): bool
     {
-        return is_string($value) ? $value : '';
+        if (is_string($value) && $value === 'false') {
+            return false;
+        }
+
+        try {
+            return is_bool($value) ? $value : (bool) $value;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
-    public static function toNullableString(mixed $value): ?string
+    public static function toString($value): string
+    {
+        try {
+            return is_string($value) ? $value : (string) $value;
+        } catch (\Exception $e) {
+            return '';
+        }
+    }
+
+    public static function toInt($value): int
+    {
+        try {
+            return is_int($value) ? $value : (int) $value;
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
+
+    public static function toNullableString($value): ?string
     {
         return is_string($value) ? $value : null;
     }
@@ -22,17 +48,25 @@ class Transform
     /**
      * @return array<mixed, mixed>
      */
-    public static function toArray(mixed $value): array
+    public static function toArray($value): array
     {
         return is_array($value) ? $value : [];
     }
 
+    public static function toDateTimeImmutable($value): \DateTimeImmutable
+    {
+        $value = self::toInt($value);
+
+        return (new \DateTimeImmutable())->setTimestamp($value);
+    }
+
     /**
      * @return array<int, object>
+     *
      * @throws ClassNotExists
      * @throws InvalidClass
      */
-    public static function toArrayOf(mixed $values, string $className): array
+    public static function toArrayOf($values, string $className): array
     {
         if (!is_array($values)) {
             return [];
@@ -49,7 +83,7 @@ class Transform
         return array_map(fn (array $value) => $className::createFromArray($value), $values);
     }
 
-    public static function toPlainText(mixed $value): string
+    public static function toPlainText($value): string
     {
         return strip_tags(self::toString($value));
     }
