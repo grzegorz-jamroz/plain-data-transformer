@@ -1,6 +1,6 @@
 {
   "name": "grzegorz-jamroz/plain-data-transformer",
-  "description": "Library allow to transform various data to specific format.",
+  "description": "A PHP library for transforming various data to specific format.",
   "require": {
     "php": ">=7.4"
   },
