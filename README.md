@@ -6,6 +6,8 @@
 
 <p align="center">
     <img src="https://img.shields.io/badge/php->=7.4-blue?colorB=%238892BF" alt="Code Coverage">  
+    <img src="https://img.shields.io/badge/coverage-37%25-brightgreen" alt="Code Coverage">   
+    <img src="https://img.shields.io/badge/release-v0.0.2-blue" alt="Release Version">   
     <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square&colorB=darkcyan" alt="Read License">
 </p>
 
@@ -15,11 +17,13 @@
 composer require grzegorz-jamroz/plain-data-transformer
 ```
 
-## Commands
+## Usage
 
-Run static code analysis
+### TransformNumeric
 
-```
-bin/fix
-```
+#### Method `toInt`
+Parse numeric value (`string`, `float` and `int`) to `integer`. It is possible to specify decimal precision using second argument `precision`  
+
+#### Method `toFloat`
+Parse `int` value to `float`. It is possible to specify decimal precision using second argument `precision`  
 

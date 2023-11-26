@@ -17,7 +17,7 @@ class Transform
 
         try {
             return is_bool($value) ? $value : (bool) $value;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return false;
         }
     }
@@ -26,7 +26,7 @@ class Transform
     {
         try {
             return is_string($value) ? $value : (string) $value;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return '';
         }
     }
@@ -35,7 +35,7 @@ class Transform
     {
         try {
             return is_int($value) ? $value : (int) $value;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return 0;
         }
     }

@@ -1,3 +1,8 @@
 .idea
 .php-cs-fixer.cache
 vendor
+
+###> phpunit/phpunit ###
+.phpunit.cache
+.phpunit.result.cache
+###< phpunit/phpunit ###
