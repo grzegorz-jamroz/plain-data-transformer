@@ -1,4 +1,13 @@
 # Changelog
+## [v1.1.0] - 2025.10.22
+### Add
+- Add unit tests for [Transform](src/Transform.php)
+- Add docker support for development environment
+- add PHPStan and PHP CS Fixer
+
+### Change
+- Change PHP version requirement to `>=8.4`
+
 ## [v1.0.0] - 2023.11.26
 ### Add
 - [TransformNumeric](src/TransformNumeric.php)
