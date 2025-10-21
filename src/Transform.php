@@ -4,87 +4,139 @@ declare(strict_types=1);
 
 namespace PlainDataTransformer;
 
-use PlainDataTransformer\Exception\ClassNotExists;
-use PlainDataTransformer\Exception\InvalidClass;
+use Closure;
+use DateTimeImmutable;
+use DateTimeInterface;
+use DateTimeZone;
+use Exception;
+use Throwable;
 
-class Transform
+final class Transform
 {
-    public static function toBool($value): bool
+    public static function toBool(mixed $value): bool
     {
         if (is_string($value) && $value === 'false') {
             return false;
         }
 
-        try {
-            return is_bool($value) ? $value : (bool) $value;
-        } catch (\Throwable $e) {
-            return false;
-        }
+        return is_bool($value) ? $value : (bool) $value;
     }
 
-    public static function toString($value): string
+    public static function toString(mixed $value): string
     {
-        try {
-            return is_string($value) ? $value : (string) $value;
-        } catch (\Throwable $e) {
-            return '';
+        if (is_string($value)) {
+            return $value;
         }
+
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+
+        if (
+            is_object($value)
+            && method_exists($value, '__toString')
+        ) {
+            try {
+                $value = $value->__toString();
+
+                return is_string($value) ? $value : '';
+            } catch (Throwable) {
+                return '';
+            }
+        }
+
+        if (
+            is_float($value)
+            || is_int($value)
+        ) {
+            return (string) $value;
+        }
+
+        return '';
     }
 
-    public static function toInt($value): int
+    public static function toInt(mixed $value): int
     {
-        try {
-            return is_int($value) ? $value : (int) $value;
-        } catch (\Throwable $e) {
-            return 0;
+        if (is_int($value)) {
+            return $value;
         }
-    }
 
-    public static function toNullableString($value): ?string
-    {
-        return is_string($value) ? $value : null;
+        if (
+            is_object($value)
+            && method_exists($value, '__toString')
+        ) {
+            try {
+                $value = $value->__toString();
+            } catch (Throwable) {
+                return 0;
+            }
+        }
+
+        if (
+            is_float($value)
+            || is_bool($value)
+            || is_string($value)
+        ) {
+            return (int) $value;
+        }
+
+        return 0;
     }
 
     /**
      * @return array<mixed, mixed>
      */
-    public static function toArray($value): array
+    public static function toArray(mixed $value): array
     {
-        return is_array($value) ? $value : [];
-    }
+        if (is_array($value)) {
+            return $value;
+        }
 
-    public static function toDateTimeImmutable($value): \DateTimeImmutable
-    {
-        $value = self::toInt($value);
-
-        return (new \DateTimeImmutable())->setTimestamp($value);
-    }
-
-    /**
-     * @return array<int, object>
-     *
-     * @throws ClassNotExists
-     * @throws InvalidClass
-     */
-    public static function toArrayOf($values, string $className): array
-    {
-        if (!is_array($values)) {
+        if (
+            is_float($value)
+            || $value instanceof Closure
+        ) {
             return [];
         }
 
-        if (!class_exists($className)) {
-            throw new ClassNotExists(sprintf('Required class "%s" not exists.', $className));
+        if (is_object($value)) {
+            return (array) $value;
         }
 
-        if (!method_exists($className, 'createFromArray')) {
-            throw new InvalidClass('Method "createFromArray" not exists in the required class.');
+        try {
+            $value = is_string($value) ? json_decode($value, true) : $value;
+        } catch (Throwable) {
+            return [];
         }
 
-        return array_map(fn (array $value) => $className::createFromArray($value), $values);
+        return is_array($value) ? $value : [];
     }
 
-    public static function toPlainText($value): string
+    public static function toDateTimeImmutable(mixed $value, ?DateTimeZone $timezone = null): DateTimeImmutable
     {
-        return strip_tags(self::toString($value));
+        try {
+            if ($value instanceof DateTimeInterface) {
+                return $value instanceof DateTimeImmutable ? $value : DateTimeImmutable::createFromMutable($value);
+            }
+
+            if (
+                $value === null
+                || is_bool($value)
+                || is_array($value)
+                || is_object($value)
+            ) {
+                throw new Exception('Unsupported type.');
+            }
+
+            if (is_string($value)) {
+                return new DateTimeImmutable($value, $timezone);
+            }
+
+            $value = self::toInt($value);
+
+            return (new DateTimeImmutable('now', $timezone))->setTimestamp($value);
+        } catch (Throwable) {
+            return new DateTimeImmutable('now', $timezone);
+        }
     }
 }

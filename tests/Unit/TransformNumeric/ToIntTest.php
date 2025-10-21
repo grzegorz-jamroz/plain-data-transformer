@@ -7,6 +7,7 @@ namespace PlainDataTransformerTests\Unit\TransformNumeric;
 use PHPUnit\Framework\TestCase;
 use PlainDataTransformer\TransformNumeric;
 use PlainDataTransformerTests\Variant\Sample;
+use TypeError;
 
 class ToIntTest extends TestCase
 {
@@ -58,7 +59,7 @@ class ToIntTest extends TestCase
         $this->assertEquals(-24000, TransformNumeric::toInt(-24, 3));
     }
 
-    public function testShouldThrowInvalidArgumentExceptionForInvalidValueType()
+    public function testShouldThrowTypeErrorForInvalidValueType()
     {
         // Given
         $values = [
@@ -71,8 +72,8 @@ class ToIntTest extends TestCase
 
         // When & Then
         foreach ($values as $value) {
-            $this->expectException(\InvalidArgumentException::class);
-            $this->expectExceptionMessage('Expected string, float or int.');
+            $this->expectException(TypeError::class);
+            $this->expectExceptionMessageMatches('/Argument #1 \(\$value\) must be of type string\|int\|float/');
             TransformNumeric::toInt($value);
         }
     }

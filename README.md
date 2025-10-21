@@ -5,25 +5,60 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/php->=7.4-blue?colorB=%238892BF" alt="Code Coverage">  
-    <img src="https://img.shields.io/badge/coverage-37%25-brightgreen" alt="Code Coverage">   
-    <img src="https://img.shields.io/badge/release-v1.0.0-blue" alt="Release Version">   
+    <img src="https://img.shields.io/badge/php->=8.4-blue?colorB=%238892BF" alt="Code Coverage">  
+    <img src="https://img.shields.io/badge/coverage-100%25-brightgreen" alt="Code Coverage">   
+    <img src="https://img.shields.io/badge/release-v1.1.0-blue" alt="Release Version">   
     <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square&colorB=darkcyan" alt="Read License">
 </p>
 
-## Installation
+# Installation
 
 ```
 composer require grzegorz-jamroz/plain-data-transformer
 ```
 
-## Usage
+---
 
-### TransformNumeric
+# Development with Docker
 
-#### Method `toInt`
-Parse numeric value (`string`, `float` and `int`) to `integer`. It is possible to specify decimal precision using second argument `precision`  
+### Build and run the containers:
+```shell
+docker compose up -d
+```
 
-#### Method `toFloat`
-Parse `int` value to `float`. It is possible to specify decimal precision using second argument `precision`  
+### Copy vendor folder from container to host
 
+```shell
+docker compose cp app:/app/vendor ./vendor
+```
+
+### Run static analysis
+
+```shell
+docker compose exec app bin/fix
+```
+
+### Run tests
+
+```shell
+docker compose exec app bin/test
+```
+
+Run single test file:
+
+```shell
+docker compose exec app vendor/bin/phpunit --filter <testMethodName> <path/to/TestFile.php>
+docker compose exec app vendor/bin/phpunit --filter testShouldReturnExpectedFloat tests/Unit/TransformNumeric/ToFloatTest.php
+```
+
+### Enable xdebug
+
+```shell
+docker compose exec app xdebug on
+```
+
+### Disable xdebug
+
+```shell
+docker compose exec app xdebug off
+```
