@@ -104,7 +104,7 @@ final class Transform
         }
 
         try {
-            $value = is_string($value) ? json_decode($value, true) : $value;
+            $value = is_string($value) ? json_decode($value, true, flags: JSON_THROW_ON_ERROR) : $value;
         } catch (Throwable) {
             return [];
         }
