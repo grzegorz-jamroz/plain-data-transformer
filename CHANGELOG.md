@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased
+## [v1.1.1] - 2025.10.26
 ### Add
 - remove composer.lock
 
@@ -23,5 +23,6 @@
 - [Transform](src/Transform.php)
   - changed cached type from \Exception to \Throwable
 
+[v1.1.1]: https://github.com/grzegorz-jamroz/plain-data-transformer/releases/tag/v1.1.1
 [v1.1.0]: https://github.com/grzegorz-jamroz/plain-data-transformer/releases/tag/v1.1.0
 [v1.0.0]: https://github.com/grzegorz-jamroz/plain-data-transformer/releases/tag/v1.0.0

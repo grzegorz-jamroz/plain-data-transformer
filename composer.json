@@ -1,7 +1,7 @@
 {
   "name": "grzegorz-jamroz/plain-data-transformer",
   "description": "A PHP library for transforming various data to specific format.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "authors": [
     {
       "name": "Grzegorz Jamróz",
