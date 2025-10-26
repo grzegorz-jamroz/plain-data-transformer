@@ -7,6 +7,7 @@ namespace PlainDataTransformerTests\Unit\Transform;
 use PHPUnit\Framework\TestCase;
 use PlainDataTransformer\Transform;
 use PlainDataTransformerTests\Variant\Sample;
+use PlainDataTransformerTests\Variant\SampleTwo;
 
 class ToIntTest extends TestCase
 {
@@ -17,6 +18,7 @@ class ToIntTest extends TestCase
         $this->assertEquals(0, Transform::toInt([]));
         $this->assertEquals(0, Transform::toInt(['foo' => 'bar', 'baz' => 'qux']));
         $this->assertEquals(0, Transform::toInt(new Sample()));
+        $this->assertEquals(0, Transform::toInt(new SampleTwo()));
         $callable = function() {
             throw new \Exception('sample exception');
         };

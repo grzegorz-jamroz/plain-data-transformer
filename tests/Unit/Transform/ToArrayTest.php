@@ -22,6 +22,7 @@ class ToArrayTest extends TestCase
         $this->assertEquals([], Transform::toArray('something'));
         $this->assertEquals([], Transform::toArray('[]'));
         $this->assertEquals([], Transform::toArray('{}'));
+        $this->assertEquals([], Transform::toArray('{'));
         $this->assertEquals([], Transform::toArray('{["one", "two"], "foo": "bar"}'));
         $this->assertEquals([], Transform::toArray(0.1));
         $this->assertEquals([], Transform::toArray(1));
