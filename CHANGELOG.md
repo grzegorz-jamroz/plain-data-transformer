@@ -1,4 +1,8 @@
 # Changelog
+## Unreleased
+### Add
+- remove composer.lock
+
 ## [v1.1.0] - 2025.10.22
 ### Add
 - Add unit tests for [Transform](src/Transform.php)
