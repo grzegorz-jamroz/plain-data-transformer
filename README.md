@@ -44,6 +44,14 @@ docker compose exec app bin/fix
 docker compose exec app bin/test
 ```
 
+### Run coverage report
+
+1. [Enable xdebug](#enable-xdebug)
+2. Run:
+```shell
+docker compose exec app bin/coverage
+```
+
 Run single test file:
 
 ```shell
