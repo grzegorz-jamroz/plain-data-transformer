@@ -1,6 +1,6 @@
 # Changelog
 ## [v1.1.1] - 2025.10.26
-### Add
+### Delete
 - remove composer.lock
 
 ## [v1.1.0] - 2025.10.22
