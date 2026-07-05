@@ -14,31 +14,31 @@ class ToStringTest extends TestCase
 {
     public function testShouldReturnEmptyString(): void
     {
-        $this->assertEquals('', Transform::toString(null));
-        $this->assertEquals('', Transform::toString(''));
-        $this->assertEquals('', Transform::toString(['foo' => 'bar']));
-        $this->assertEquals('', Transform::toString([]));
-        $this->assertEquals('', Transform::toString(new SampleTwo()));
+        $this->assertSame('', Transform::toString(null));
+        $this->assertSame('', Transform::toString(''));
+        $this->assertSame('', Transform::toString(['foo' => 'bar']));
+        $this->assertSame('', Transform::toString([]));
+        $this->assertSame('', Transform::toString(new SampleTwo()));
         $callable = function() {
             throw new \Exception('sample exception');
         };
-        $this->assertEquals('', Transform::toString($callable));
+        $this->assertSame('', Transform::toString($callable));
     }
 
     public function testShouldReturnOriginalStrings(): void
     {
-        $this->assertEquals('something', Transform::toString('something'));
-        $this->assertEquals('true', Transform::toString('true'));
-        $this->assertEquals('false', Transform::toString('false'));
+        $this->assertSame('something', Transform::toString('something'));
+        $this->assertSame('true', Transform::toString('true'));
+        $this->assertSame('false', Transform::toString('false'));
     }
 
     public function testShouldReturnConvertedValues(): void
     {
-        $this->assertEquals('', Transform::toString(new Sample()));
-        $this->assertEquals('sample', Transform::toString(new SampleOne()));
-        $this->assertEquals('0.1', Transform::toString(0.1));
-        $this->assertEquals('1', Transform::toString(1));
-        $this->assertEquals('true', Transform::toString(true));
-        $this->assertEquals('false', Transform::toString(false));
+        $this->assertSame('', Transform::toString(new Sample()));
+        $this->assertSame('sample', Transform::toString(new SampleOne()));
+        $this->assertSame('0.1', Transform::toString(0.1));
+        $this->assertSame('1', Transform::toString(1));
+        $this->assertSame('true', Transform::toString(true));
+        $this->assertSame('false', Transform::toString(false));
     }
 }

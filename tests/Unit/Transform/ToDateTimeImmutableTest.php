@@ -45,9 +45,10 @@ class ToDateTimeImmutableTest extends TestCase
     public function testShouldReturnDateTimeInSpecificTimeZone(mixed $value, DateTimeZone $timeZone, DateTimeZone $expectedTimeZone): void
     {
         $dateTime = Transform::toDateTimeImmutable($value, $timeZone);
+        $this->assertSame($expectedTimeZone->getName(), $dateTime->getTimezone()->getName());
         $this->assertEquals($expectedTimeZone, $dateTime->getTimezone());
-        $this->assertEquals(1410273901, $dateTime->getTimestamp());
-        $this->assertEquals('2014-09-09T16:45:01+02:00', $dateTime->format(DateTimeImmutable::ATOM));
+        $this->assertSame(1410273901, $dateTime->getTimestamp());
+        $this->assertSame('2014-09-09T16:45:01+02:00', $dateTime->format(DateTimeImmutable::ATOM));
         $this->assertInstanceOf(DateTimeImmutable::class, $dateTime);
     }
 
@@ -62,6 +63,7 @@ class ToDateTimeImmutableTest extends TestCase
     public function testShouldReturnConvertedValues(mixed $value, DateTimeImmutable $expected): void
     {
         $this->assertEquals($expected, Transform::toDateTimeImmutable($value));
+        $this->assertSame($expected->getTimestamp(), Transform::toDateTimeImmutable($value)->getTimestamp());
     }
 
     public static function convertedValuesProvider(): \Generator
