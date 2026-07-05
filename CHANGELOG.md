@@ -1,10 +1,11 @@
 # Changelog
-## Unreleased
-- [Transform](src/Transform.php)
+## [v1.1.3] - 2026.06.05
 ### Add
-  - add toFloat method with implement comprehensive unit tests
+  - [Transform](src/Transform.php)
+    - add toFloat method with implement comprehensive unit tests
 ### Change
-  - improve handling string in toInt method
+  - [Transform](src/Transform.php)
+    - improve handling string in `toInt` method
   - refactor tests to use assertSame for consistency in Transform methods
 
 ## [v1.1.2] - 2025.10.26
@@ -42,6 +43,7 @@
 - [Transform](src/Transform.php)
   - changed cached type from \Exception to \Throwable
 
+[v1.1.3]: https://github.com/grzegorz-jamroz/plain-data-transformer/releases/tag/v1.1.3
 [v1.1.2]: https://github.com/grzegorz-jamroz/plain-data-transformer/releases/tag/v1.1.2
 [v1.1.1]: https://github.com/grzegorz-jamroz/plain-data-transformer/releases/tag/v1.1.1
 [v1.1.0]: https://github.com/grzegorz-jamroz/plain-data-transformer/releases/tag/v1.1.0
