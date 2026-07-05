@@ -1,4 +1,11 @@
 # Changelog
+## Unreleased
+- [Transform](src/Transform.php)
+### Add
+  - add toFloat method
+### Change
+  - improve handling string in toInt method
+
 ## [v1.1.2] - 2025.10.26
 ### Add
 - add coverage script and update README for coverage report instructions

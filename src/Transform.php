@@ -72,15 +72,52 @@ final class Transform
             }
         }
 
+        if (is_string($value)) {
+            $value = str_replace(',', '.', $value);
+            $value = str_replace(["\xc2\xa0", ' '], '', $value);
+
+            return (int) $value;
+        }
+
         if (
             is_float($value)
             || is_bool($value)
-            || is_string($value)
         ) {
             return (int) $value;
         }
 
         return 0;
+    }
+
+    public static function toFloat(mixed $value, ?int $precision = null): float
+    {
+        if ($value === null) {
+            return 0.0;
+        }
+
+        if (
+            is_object($value)
+            && method_exists($value, '__toString')
+        ) {
+            try {
+                $value = $value->__toString();
+            } catch (Throwable) {
+                return 0.0;
+            }
+        }
+
+        if (is_string($value)) {
+            $value = str_replace(',', '.', $value);
+            $value = str_replace(["\xc2\xa0", ' '], '', $value);
+        }
+
+        $value = (float) $value;
+
+        if ($precision === null) {
+            return $value;
+        }
+
+        return round($value, $precision);
     }
 
     /**
