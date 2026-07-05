@@ -91,7 +91,17 @@ final class Transform
 
     public static function toFloat(mixed $value, ?int $precision = null): float
     {
-        if ($value === null) {
+        if (
+            $value === null
+            || is_array($value)
+        ) {
+            return 0.0;
+        }
+
+        if (
+            is_object($value)
+            && method_exists($value, '__toString') === false
+        ) {
             return 0.0;
         }
 

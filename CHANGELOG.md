@@ -2,9 +2,10 @@
 ## Unreleased
 - [Transform](src/Transform.php)
 ### Add
-  - add toFloat method
+  - add toFloat method with implement comprehensive unit tests
 ### Change
   - improve handling string in toInt method
+  - refactor tests to use assertSame for consistency in Transform methods
 
 ## [v1.1.2] - 2025.10.26
 ### Add
