@@ -1,5 +1,5 @@
 # Changelog
-## unreleased
+## [v1.1.4] - 2026.07.21
 ### Add
   - add support for BackedEnum and UnitEnum in toString method, and introduce corresponding test cases
 
@@ -47,6 +47,7 @@
 - [Transform](src/Transform.php)
   - changed cached type from \Exception to \Throwable
 
+[v1.1.4]: https://github.com/grzegorz-jamroz/plain-data-transformer/releases/tag/v1.1.4
 [v1.1.3]: https://github.com/grzegorz-jamroz/plain-data-transformer/releases/tag/v1.1.3
 [v1.1.2]: https://github.com/grzegorz-jamroz/plain-data-transformer/releases/tag/v1.1.2
 [v1.1.1]: https://github.com/grzegorz-jamroz/plain-data-transformer/releases/tag/v1.1.1
