@@ -1,4 +1,8 @@
 # Changelog
+## unreleased
+### Add
+  - add support for BackedEnum and UnitEnum in toString method, and introduce corresponding test cases
+
 ## [v1.1.3] - 2026.06.05
 ### Add
   - [Transform](src/Transform.php)

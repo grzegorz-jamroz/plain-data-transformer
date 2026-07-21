@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace PlainDataTransformer;
 
+use BackedEnum;
 use Closure;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
 use Throwable;
+use UnitEnum;
 
 final class Transform
 {
@@ -43,6 +45,14 @@ final class Transform
             } catch (Throwable) {
                 return '';
             }
+        }
+
+        if (is_object($value) && $value instanceof BackedEnum) {
+            return self::toString($value->value);
+        }
+
+        if ($value instanceof UnitEnum) {
+            return $value->name;
         }
 
         if (
